@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>4.0.3</version>
+		<relativePath/>
+	</parent>
+
+	<groupId>ninja.cero.store</groupId>
+	<artifactId>store-parent</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+
+	<name>store-parent</name>
+	<description>store-parent</description>
+
+	<properties>
+		<java.version>21</java.version>
+	</properties>
+
+	<modules>
+		<module>item/item-client</module>
+		<module>item/item-domain</module>
+		<module>item/item-service</module>
+
+		<module>stock/stock-client</module>
+		<module>stock/stock-domain</module>
+		<module>stock/stock-service</module>
+
+		<module>cart/cart-client</module>
+		<module>cart/cart-domain</module>
+		<module>cart/cart-service</module>
+
+		<module>payment/payment-client</module>
+		<module>payment/payment-domain</module>
+		<module>payment/payment-service</module>
+
+		<module>order/order-client</module>
+		<module>order/order-domain</module>
+		<module>order/order-service</module>
+
+		<module>delivery/delivery-service</module>
+
+		<module>bff</module>
+		<module>messaging</module>
+	</modules>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>ninja.cero.store</groupId>
+				<artifactId>item-client</artifactId>
+				<version>1.0.0</version>
+			</dependency>
+			<dependency>
+				<groupId>ninja.cero.store</groupId>
+				<artifactId>item-domain</artifactId>
+				<version>1.0.0</version>
+			</dependency>
+			<dependency>
+				<groupId>ninja.cero.store</groupId>
+				<artifactId>stock-client</artifactId>
+				<version>1.0.0</version>
+			</dependency>
+			<dependency>
+				<groupId>ninja.cero.store</groupId>
+				<artifactId>stock-domain</artifactId>
+				<version>1.0.0</version>
+			</dependency>
+			<dependency>
+				<groupId>ninja.cero.store</groupId>
+				<artifactId>cart-client</artifactId>
+				<version>1.0.0</version>
+			</dependency>
+			<dependency>
+				<groupId>ninja.cero.store</groupId>
+				<artifactId>cart-domain</artifactId>
+				<version>1.0.0</version>
+			</dependency>
+			<dependency>
+				<groupId>ninja.cero.store</groupId>
+				<artifactId>payment-client</artifactId>
+				<version>1.0.0</version>
+			</dependency>
+			<dependency>
+				<groupId>ninja.cero.store</groupId>
+				<artifactId>payment-domain</artifactId>
+				<version>1.0.0</version>
+			</dependency>
+			<dependency>
+				<groupId>ninja.cero.store</groupId>
+				<artifactId>order-client</artifactId>
+				<version>1.0.0</version>
+			</dependency>
+			<dependency>
+				<groupId>ninja.cero.store</groupId>
+				<artifactId>order-domain</artifactId>
+				<version>1.0.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+				<version>3.0.1</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+</project>
