@@ -8,7 +8,7 @@ CREATE TABLE `order`
   card_number VARCHAR(32),
   card_expire VARCHAR(8),
   card_name VARCHAR(256),
-  cart_id VARCHAR(32),
+  cart_id BIGINT,
   amount NUMBER
 );
 

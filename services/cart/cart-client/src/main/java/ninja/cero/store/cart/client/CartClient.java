@@ -28,14 +28,14 @@ public class CartClient {
                 .body(type);
     }
 
-    public CartOverview findCartById(String cartId) {
+    public CartOverview findCartById(Long cartId) {
         return restClient.get()
                 .uri(baseUrl + "/" + cartId)
                 .retrieve()
                 .body(CartOverview.class);
     }
 
-    public CartDetail findCartDetailById(String cartId) {
+    public CartDetail findCartDetailById(Long cartId) {
         return restClient.get()
                 .uri(baseUrl + "/" + cartId + "/detail")
                 .retrieve()
@@ -49,7 +49,7 @@ public class CartClient {
                 .body(CartOverview.class);
     }
 
-    public CartOverview addItem(String cartId, CartEvent cartEvent) {
+    public CartOverview addItem(Long cartId, CartEvent cartEvent) {
         return restClient.post()
                 .uri(baseUrl + "/" + cartId)
                 .body(cartEvent)
@@ -57,7 +57,7 @@ public class CartClient {
                 .body(CartOverview.class);
     }
 
-    public void removeItem(String cartId, Long itemId) {
+    public void removeItem(Long cartId, Long itemId) {
         restClient.delete()
                 .uri(baseUrl + "/" + cartId + "/" + "items" + "/" + itemId)
                 .retrieve()

@@ -7,5 +7,5 @@ public record OrderRequest(String name,
                            String cardNumber,
                            String cardExpire,
                            String cardName,
-                           String cartId) {
+                           Long cartId) {
 }

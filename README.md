@@ -5,7 +5,7 @@
 - Microservice application example (sorry but headless)
 - Built with Spring Boot 4.0 and Sprimg AMQP
 - Runnable locally with docker-compose
-- Monitored with Grafana, Loki, Tempo and Mimir
+- Monitored with Grafana, Loki, Tempo and Prometheus
 
 Services look like:
 ```mermaid
@@ -25,10 +25,10 @@ flowchart LR
 Monitoring infrastructure looks like:
 ```mermaid
 flowchart LR
-  APPs -->|Metrics| Mimir
+  APPs -->|Metrics| Prometheus
   APPs -->|Logs| Loki
   APPs -->|Traces| Tempo
-  Mimir --- G(Grafana: visualize)
+  Prometheus --- G(Grafana: visualize)
   Loki --- G
   Tempo --- G
 ```

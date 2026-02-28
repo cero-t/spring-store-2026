@@ -10,5 +10,5 @@ public record Order(@Id Long id,
                     String cardNumber,
                     String cardExpire,
                     String cardName,
-                    String cartId) {
+                    Long cartId) {
 }

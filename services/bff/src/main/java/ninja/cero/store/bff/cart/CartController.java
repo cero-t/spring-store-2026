@@ -35,13 +35,13 @@ public class CartController {
     }
 
     @GetMapping("/{cartId}")
-    public CartDetail findCart(@PathVariable String cartId) {
+    public CartDetail findCart(@PathVariable Long cartId) {
         logger.info("CART DETAIL");
         return cartClient.findCartDetailById(cartId);
     }
 
     @PostMapping("/{cartId}")
-    public CartDetail addEvent(@PathVariable String cartId, @RequestBody CartEvent cartEvent) {
+    public CartDetail addEvent(@PathVariable Long cartId, @RequestBody CartEvent cartEvent) {
         logger.info("ADD ITEM");
 
         CartOverview cart = cartClient.findCartById(cartId);
@@ -63,7 +63,7 @@ public class CartController {
     }
 
     @DeleteMapping("/{cartId}/{itemId}")
-    public CartDetail removeItem(@PathVariable String cartId, @PathVariable Long itemId) {
+    public CartDetail removeItem(@PathVariable Long cartId, @PathVariable Long itemId) {
         logger.info("ITEM REMOVED");
 
         cartClient.removeItem(cartId, itemId);
