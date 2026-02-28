@@ -10,7 +10,7 @@ npm run dev
 
 Default app URL: http://localhost:5173
 
-BFF base URL is `http://localhost:9000` by default.
+Store API base URL is `http://localhost:9000` by default.
 
 Optional env file:
 

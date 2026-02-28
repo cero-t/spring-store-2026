@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ApiError, bffClient } from '../api/bffClient';
+import { ApiError, storeClient } from '../api/storeClient';
 import { ensureCartId } from '../features/cart/cartSession';
 import type { CatalogItem } from '../types';
 
@@ -20,7 +20,7 @@ export function CatalogPage() {
   useEffect(() => {
     (async () => {
       try {
-        const data = await bffClient.getCatalog();
+        const data = await storeClient.getCatalog();
         setItems(data);
       } catch (e) {
         const msg = e instanceof ApiError ? e.message : 'Failed to load catalog';
@@ -36,7 +36,7 @@ export function CatalogPage() {
     setError(null);
     try {
       const cartId = await ensureCartId();
-      await bffClient.addCartItem(cartId, { itemId, quantity: 1 });
+      await storeClient.addCartItem(cartId, { itemId, quantity: 1 });
       setShowAddedModal(true);
     } catch (e) {
       const msg = e instanceof ApiError ? e.message : 'Failed to add item';

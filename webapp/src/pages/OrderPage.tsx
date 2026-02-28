@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ApiError, bffClient } from '../api/bffClient';
+import { ApiError, storeClient } from '../api/storeClient';
 import { clearStoredCartId } from '../features/cart/cartStorage';
 import { loadCart } from '../features/cart/cartSession';
 import type { CartDetail, OrderRequest } from '../types';
@@ -59,7 +59,7 @@ export function OrderPage() {
     setSubmitting(true);
     setError(null);
     try {
-      await bffClient.checkout({ ...form, cartId: cart.cartId });
+      await storeClient.checkout({ ...form, cartId: cart.cartId });
       clearStoredCartId();
       navigate('/order/complete', { replace: true });
     } catch (e) {

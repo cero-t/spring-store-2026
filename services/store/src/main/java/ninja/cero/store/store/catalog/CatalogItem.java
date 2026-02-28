@@ -1,4 +1,4 @@
-package ninja.cero.store.bff.catalog;
+package ninja.cero.store.store.catalog;
 
 import org.springframework.data.annotation.Id;
 

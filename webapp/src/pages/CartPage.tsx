@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ApiError, bffClient } from '../api/bffClient';
+import { ApiError, storeClient } from '../api/storeClient';
 import { loadCart } from '../features/cart/cartSession';
 import type { CartDetail, CartItem } from '../types';
 
@@ -32,7 +32,7 @@ export function CartPage() {
     if (!cart) return;
     setBusyItem(item.itemId);
     try {
-      const updated = await bffClient.addCartItem(cart.cartId, { itemId: item.itemId, quantity: 1 });
+      const updated = await storeClient.addCartItem(cart.cartId, { itemId: item.itemId, quantity: 1 });
       setCart(updated);
     } catch (e) {
       const msg = e instanceof ApiError ? e.message : 'Failed to update quantity';
@@ -46,7 +46,7 @@ export function CartPage() {
     if (!cart) return;
     setBusyItem(item.itemId);
     try {
-      const updated = await bffClient.removeCartItem(cart.cartId, item.itemId);
+      const updated = await storeClient.removeCartItem(cart.cartId, item.itemId);
       setCart(updated);
     } catch (e) {
       const msg = e instanceof ApiError ? e.message : 'Failed to remove item';

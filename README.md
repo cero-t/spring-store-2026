@@ -10,11 +10,11 @@
 Services look like:
 ```mermaid
 flowchart LR
-  BFF -->|View catalog| ItemService
-  BFF -->|Operate cart| CartService
+  Store -->|View catalog| ItemService
+  Store -->|Operate cart| CartService
   CartService -->|View items| ItemService
   CartService -->|Check stocks| StockService
-  BFF -->|Order| OrderService
+  Store -->|Order| OrderService
   OrderService -->|Keep stock| StockService
   OrderService -->|Process order| M((Messaging))
   M -.->|Queue| M
@@ -62,7 +62,7 @@ Maven's `spring-boot:run` command is unavailable for some reasons.
 
 #### 3. Play with applications!
 
-- Swagger UI of BFF
+- Swagger UI of Store API
   - http://localhost:9000/swagger-ui.html
 
 1. catalog-controller: GET `/catalog`
@@ -91,7 +91,7 @@ Example of `/order` Post body.
   "cardNumber": "0000111122223333",
   "cardExpire": "12/24",
   "cardName": "Shin Tanimoto",
-  "cartId": "1"
+  "cartId": 1
 }
 ```
 

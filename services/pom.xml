@@ -44,7 +44,7 @@
 
 		<module>delivery/delivery-service</module>
 
-		<module>bff</module>
+		<module>store</module>
 		<module>messaging</module>
 	</modules>
 

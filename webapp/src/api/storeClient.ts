@@ -1,6 +1,6 @@
 import type { CartDetail, CartEvent, CartOverview, CatalogItem, OrderRequest } from '../types';
 
-const baseUrl = import.meta.env.VITE_BFF_BASE_URL ?? 'http://localhost:9000';
+const baseUrl = import.meta.env.VITE_STORE_BASE_URL ?? 'http://localhost:9000';
 
 export class ApiError extends Error {
   status: number;
@@ -32,7 +32,7 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   return (text ? JSON.parse(text) : undefined) as T;
 }
 
-export const bffClient = {
+export const storeClient = {
   getCatalog: () => request<CatalogItem[]>('/catalog'),
   createCart: () => request<CartOverview>('/cart', { method: 'POST' }),
   getCart: (cartId: number) => request<CartDetail>(`/cart/${cartId}`),

@@ -1,4 +1,4 @@
-package ninja.cero.store.bff.catalog;
+package ninja.cero.store.store.catalog;
 
 import ninja.cero.store.item.client.ItemClient;
 import ninja.cero.store.item.domain.Item;

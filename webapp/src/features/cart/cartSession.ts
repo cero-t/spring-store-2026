@@ -1,4 +1,4 @@
-import { bffClient } from '../../api/bffClient';
+import { storeClient } from '../../api/storeClient';
 import type { CartDetail } from '../../types';
 import { clearStoredCartId, getStoredCartId, setStoredCartId } from './cartStorage';
 
@@ -6,19 +6,19 @@ export async function ensureCartId(): Promise<number> {
   const existing = getStoredCartId();
   if (existing !== null) {
     try {
-      await bffClient.getCart(existing);
+      await storeClient.getCart(existing);
       return existing;
     } catch {
       clearStoredCartId();
     }
   }
 
-  const created = await bffClient.createCart();
+  const created = await storeClient.createCart();
   setStoredCartId(created.cartId);
   return created.cartId;
 }
 
 export async function loadCart(): Promise<CartDetail> {
   const cartId = await ensureCartId();
-  return bffClient.getCart(cartId);
+  return storeClient.getCart(cartId);
 }

@@ -1,4 +1,4 @@
-package ninja.cero.store.bff;
+package ninja.cero.store.store;
 
 import io.micrometer.observation.ObservationRegistry;
 import ninja.cero.store.cart.client.CartClient;
@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestClient;
 
 @Configuration
-public class BffConfig {
+public class StoreConfig {
     @Bean
     RestClient restClient(ObservationRegistry observationRegistry) {
         return RestClient.builder()

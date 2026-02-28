@@ -1,4 +1,4 @@
-package ninja.cero.store.bff.order;
+package ninja.cero.store.store.order;
 
 import ninja.cero.store.order.client.OrderClient;
 import ninja.cero.store.order.domain.OrderRequest;

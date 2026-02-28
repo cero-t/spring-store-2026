@@ -1,4 +1,4 @@
-package ninja.cero.store.bff;
+package ninja.cero.store.store;
 
 import java.io.IOException;
 import java.nio.file.*;

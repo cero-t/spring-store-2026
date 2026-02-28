@@ -1,11 +1,11 @@
-package ninja.cero.store.bff;
+package ninja.cero.store.store;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BffApplication {
+public class StoreApplication {
     public static void main(String[] args) {
-        SpringApplication.run(BffApplication.class, args);
+        SpringApplication.run(StoreApplication.class, args);
     }
 }
