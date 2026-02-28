@@ -1,0 +1,120 @@
+import { FormEvent, useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ApiError, bffClient } from '../api/bffClient';
+import { clearStoredCartId } from '../features/cart/cartStorage';
+import { loadCart } from '../features/cart/cartSession';
+import type { CartDetail, OrderRequest } from '../types';
+
+type OrderForm = Omit<OrderRequest, 'cartId'>;
+
+const initialForm: OrderForm = {
+  name: '',
+  address: '',
+  telephone: '',
+  mailAddress: '',
+  cardNumber: '',
+  cardExpire: '',
+  cardName: ''
+};
+
+function validate(form: OrderForm): string | null {
+  if (Object.values(form).some((v) => !v.trim())) return 'All fields are required';
+  if (!/^\S+@\S+\.\S+$/.test(form.mailAddress)) return 'Invalid mail address';
+  if (!/^[0-9-]+$/.test(form.telephone)) return 'Invalid telephone';
+  if (!/^\d+$/.test(form.cardNumber)) return 'Card number must contain only digits';
+  if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(form.cardExpire)) return 'Card expire must be MM/yy';
+  return null;
+}
+
+export function OrderPage() {
+  const navigate = useNavigate();
+  const [cart, setCart] = useState<CartDetail | null>(null);
+  const [form, setForm] = useState<OrderForm>(initialForm);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const detail = await loadCart();
+        setCart(detail);
+      } catch (e) {
+        const msg = e instanceof ApiError ? e.message : 'Failed to load cart';
+        setError(msg);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
+
+  const validationError = useMemo(() => validate(form), [form]);
+
+  const onSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+    if (!cart || cart.items.length === 0 || validationError) {
+      return;
+    }
+
+    setSubmitting(true);
+    setError(null);
+    try {
+      await bffClient.checkout({ ...form, cartId: cart.cartId });
+      clearStoredCartId();
+      navigate('/order/complete', { replace: true });
+    } catch (e) {
+      const msg = e instanceof ApiError ? e.message : 'Failed to place order';
+      setError(msg);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  if (loading) return <p>Loading order form...</p>;
+
+  return (
+    <section>
+      <h2>Order</h2>
+      {error && <p className="error">{error}</p>}
+      {cart && <p>Cart total: ${cart.total.toFixed(2)}</p>}
+      {cart && cart.items.length > 0 ? (
+        <form className="form" onSubmit={onSubmit}>
+          <label>
+            Name
+            <input onChange={(e) => setForm({ ...form, name: e.target.value })} value={form.name} />
+          </label>
+          <label>
+            Address
+            <input onChange={(e) => setForm({ ...form, address: e.target.value })} value={form.address} />
+          </label>
+          <label>
+            Telephone
+            <input onChange={(e) => setForm({ ...form, telephone: e.target.value })} value={form.telephone} />
+          </label>
+          <label>
+            Mail Address
+            <input onChange={(e) => setForm({ ...form, mailAddress: e.target.value })} value={form.mailAddress} />
+          </label>
+          <label>
+            Card Number
+            <input onChange={(e) => setForm({ ...form, cardNumber: e.target.value })} value={form.cardNumber} />
+          </label>
+          <label>
+            Card Expire (MM/yy)
+            <input onChange={(e) => setForm({ ...form, cardExpire: e.target.value })} value={form.cardExpire} />
+          </label>
+          <label>
+            Card Name
+            <input onChange={(e) => setForm({ ...form, cardName: e.target.value })} value={form.cardName} />
+          </label>
+          {validationError && <p className="error">{validationError}</p>}
+          <button disabled={submitting || Boolean(validationError)} type="submit">
+            {submitting ? 'Ordering...' : 'Place order'}
+          </button>
+        </form>
+      ) : (
+        <p>Cart is empty. Please add items from catalog first.</p>
+      )}
+    </section>
+  );
+}
