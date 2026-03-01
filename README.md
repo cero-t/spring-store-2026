@@ -44,9 +44,9 @@ flowchart LR
 
 #### 1. Start up RabbitMQ and Grafana stack.
 
-Go to `docker` directory
+Go to `docker/dev` directory
 ```
-cd docker
+cd docker/dev
 ```
 
 Run up RabbitMQ and Grafana stack
@@ -56,9 +56,22 @@ docker-compose up -d
 
 #### 2. Run applications
 
-Use IDE to start up each service.
+Go to `services` directory.
+```
+cd services
+```
 
-Maven's `spring-boot:run` command is unavailable for some reasons.
+Run each service with `mvnw` in separate terminals.
+```
+./mvnw -pl item/item-service -am spring-boot:run
+./mvnw -pl stock/stock-service -am spring-boot:run
+./mvnw -pl cart/cart-service -am spring-boot:run
+./mvnw -pl payment/payment-service -am spring-boot:run
+./mvnw -pl delivery/delivery-service -am spring-boot:run
+./mvnw -pl messaging -am spring-boot:run
+./mvnw -pl order/order-service -am spring-boot:run
+./mvnw -pl store -am spring-boot:run
+```
 
 #### 3. Play with applications!
 
@@ -101,7 +114,7 @@ Example of `/order` Post body.
 
 #### 5. Finish applications
 
-1. Stop each service from your IDE
+1. Stop each service terminal with `Ctrl+C`
 
 2. Stop RabbitMQ and Grafana stack
 
