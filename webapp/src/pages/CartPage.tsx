@@ -56,53 +56,74 @@ export function CartPage() {
     }
   };
 
-  if (loading) return <p>Loading cart...</p>;
+  if (loading) {
+    return (
+      <div className="loading">
+        <div className="spinner" />
+        Loading cart...
+      </div>
+    );
+  }
 
   return (
     <section>
-      <h2>Cart</h2>
+      <h2 className="page-title">Cart</h2>
       {error && <p className="error">{error}</p>}
       {cart && cart.items.length > 0 ? (
         <>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Item</th>
-                <th>Price</th>
-                <th>Qty</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {cart.items.map((item) => (
-                <tr key={item.itemId}>
-                  <td>{item.name}</td>
-                  <td>${item.unitPrice.toFixed(2)}</td>
-                  <td>{item.quantity}</td>
-                  <td>
-                    <button disabled={busyItem === item.itemId} onClick={() => addOne(item)} type="button">
-                      +1
-                    </button>{' '}
-                    <button disabled={busyItem === item.itemId} onClick={() => remove(item)} type="button">
-                      Remove
-                    </button>
-                  </td>
+          <div className="cart-table-wrapper">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Price</th>
+                  <th>Qty</th>
+                  <th>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          <p className="total">Total: ${cart.total.toFixed(2)}</p>
-          <Link className="button-link" to="/order">
-            Go to order
-          </Link>
+              </thead>
+              <tbody>
+                {cart.items.map((item) => (
+                  <tr key={item.itemId}>
+                    <td><span className="item-name">{item.name}</span></td>
+                    <td>${item.unitPrice.toFixed(2)}</td>
+                    <td><span className="item-qty">{item.quantity}</span></td>
+                    <td>
+                      <div className="item-actions">
+                        <button className="btn-sm btn-ghost" disabled={busyItem === item.itemId} onClick={() => addOne(item)} type="button">
+                          +1
+                        </button>
+                        <button className="btn-sm btn-outline-danger" disabled={busyItem === item.itemId} onClick={() => remove(item)} type="button">
+                          Remove
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="cart-summary">
+            <span className="total">Total: ${cart.total.toFixed(2)}</span>
+            <Link className="button-link" to="/order">
+              Proceed to checkout
+            </Link>
+          </div>
         </>
       ) : (
-        <>
-          <p>Your cart is empty.</p>
+        <div className="empty-state">
+          <div className="empty-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.35">
+              <circle cx="9" cy="21" r="1" />
+              <circle cx="20" cy="21" r="1" />
+              <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6" />
+            </svg>
+          </div>
+          <h3>Your cart is empty</h3>
+          <p>Browse the catalog and add some items.</p>
           <Link className="button-link" to="/catalog">
-            Back to catalog
+            Browse catalog
           </Link>
-        </>
+        </div>
       )}
     </section>
   );

@@ -70,50 +70,86 @@ export function OrderPage() {
     }
   };
 
-  if (loading) return <p>Loading order form...</p>;
+  if (loading) {
+    return (
+      <div className="loading">
+        <div className="spinner" />
+        Loading order form...
+      </div>
+    );
+  }
 
   return (
     <section>
-      <h2>Order</h2>
+      <h2 className="page-title">Checkout</h2>
       {error && <p className="error">{error}</p>}
-      {cart && <p>Cart total: ${cart.total.toFixed(2)}</p>}
       {cart && cart.items.length > 0 ? (
-        <form className="form" onSubmit={onSubmit}>
-          <label>
-            Name
-            <input onChange={(e) => setForm({ ...form, name: e.target.value })} value={form.name} />
-          </label>
-          <label>
-            Address
-            <input onChange={(e) => setForm({ ...form, address: e.target.value })} value={form.address} />
-          </label>
-          <label>
-            Telephone
-            <input onChange={(e) => setForm({ ...form, telephone: e.target.value })} value={form.telephone} />
-          </label>
-          <label>
-            Mail Address
-            <input onChange={(e) => setForm({ ...form, mailAddress: e.target.value })} value={form.mailAddress} />
-          </label>
-          <label>
-            Card Number
-            <input onChange={(e) => setForm({ ...form, cardNumber: e.target.value })} value={form.cardNumber} />
-          </label>
-          <label>
-            Card Expire (MM/yy)
-            <input onChange={(e) => setForm({ ...form, cardExpire: e.target.value })} value={form.cardExpire} />
-          </label>
-          <label>
-            Card Name
-            <input onChange={(e) => setForm({ ...form, cardName: e.target.value })} value={form.cardName} />
-          </label>
-          {validationError && <p className="error">{validationError}</p>}
-          <button disabled={submitting || Boolean(validationError)} type="submit">
-            {submitting ? 'Ordering...' : 'Place order'}
-          </button>
-        </form>
+        <>
+          <p className="order-total">Order total: ${cart.total.toFixed(2)}</p>
+          <form className="form" onSubmit={onSubmit}>
+            <div className="form-section">
+              <h3 className="form-section-title">Shipping Information</h3>
+              <div className="form-fields">
+                <label>
+                  Name
+                  <input onChange={(e) => setForm({ ...form, name: e.target.value })} value={form.name} />
+                </label>
+                <label>
+                  Address
+                  <input onChange={(e) => setForm({ ...form, address: e.target.value })} value={form.address} />
+                </label>
+                <label>
+                  Telephone
+                  <input onChange={(e) => setForm({ ...form, telephone: e.target.value })} value={form.telephone} />
+                </label>
+                <label>
+                  Email
+                  <input
+                    onChange={(e) => setForm({ ...form, mailAddress: e.target.value })}
+                    type="email"
+                    value={form.mailAddress}
+                  />
+                </label>
+              </div>
+            </div>
+            <div className="form-section">
+              <h3 className="form-section-title">Payment Details</h3>
+              <div className="form-fields">
+                <label>
+                  Card Number
+                  <input
+                    onChange={(e) => setForm({ ...form, cardNumber: e.target.value })}
+                    value={form.cardNumber}
+                  />
+                </label>
+                <label>
+                  Expiry (MM/yy)
+                  <input
+                    onChange={(e) => setForm({ ...form, cardExpire: e.target.value })}
+                    placeholder="MM/yy"
+                    value={form.cardExpire}
+                  />
+                </label>
+                <label>
+                  Cardholder Name
+                  <input
+                    onChange={(e) => setForm({ ...form, cardName: e.target.value })}
+                    value={form.cardName}
+                  />
+                </label>
+              </div>
+            </div>
+            {validationError && <p className="error">{validationError}</p>}
+            <button disabled={submitting || Boolean(validationError)} type="submit">
+              {submitting ? 'Placing order...' : 'Place order'}
+            </button>
+          </form>
+        </>
       ) : (
-        <p>Cart is empty. Please add items from catalog first.</p>
+        <div className="empty-state">
+          <h3>Cart is empty</h3>
+          <p>Please add items from the catalog before checking out.</p>
+        </div>
       )}
     </section>
   );

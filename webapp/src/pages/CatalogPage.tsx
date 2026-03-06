@@ -46,36 +46,54 @@ export function CatalogPage() {
     }
   };
 
-  if (loading) return <p>Loading catalog...</p>;
+  if (loading) {
+    return (
+      <div className="loading">
+        <div className="spinner" />
+        Loading catalog...
+      </div>
+    );
+  }
 
   return (
     <section>
-      <h2>Catalog</h2>
+      <h2 className="page-title">Catalog</h2>
       {error && <p className="error">{error}</p>}
       <div className="catalog-grid">
         {items.map((item) => (
           <article className="card" key={item.id}>
             <img alt={item.name} className="thumb" src={item.image} />
-            <h3>{item.name}</h3>
-            <p>{item.author}</p>
-            <p>${item.unitPrice.toFixed(2)}</p>
-            <p>Release: {formatDate(item.release)}</p>
-            <button
-              disabled={!item.inStock || updatingId === item.id}
-              onClick={() => addToCart(item.id)}
-              type="button"
-            >
-              {item.inStock ? 'Add to cart' : 'Out of stock'}
-            </button>
+            <div className="card-body">
+              <h3>{item.name}</h3>
+              <p className="card-author">{item.author}</p>
+              <div className="card-meta">
+                <span className="card-price">${item.unitPrice.toFixed(2)}</span>
+                <span className="card-release">{formatDate(item.release)}</span>
+              </div>
+            </div>
+            <div className="card-footer">
+              <button
+                disabled={!item.inStock || updatingId === item.id}
+                onClick={() => addToCart(item.id)}
+                type="button"
+              >
+                {updatingId === item.id
+                  ? 'Adding...'
+                  : item.inStock
+                    ? 'Add to cart'
+                    : 'Out of stock'}
+              </button>
+            </div>
           </article>
         ))}
       </div>
       {showAddedModal && (
         <div className="modal-backdrop" role="presentation">
           <div aria-live="polite" className="modal" role="dialog">
+            <p className="modal-title">Added to cart</p>
             <p>1 item has been added to your cart.</p>
             <div className="modal-actions">
-              <button onClick={() => setShowAddedModal(false)} type="button">
+              <button className="btn-ghost" onClick={() => setShowAddedModal(false)} type="button">
                 Continue shopping
               </button>
               <button onClick={() => navigate('/cart')} type="button">
