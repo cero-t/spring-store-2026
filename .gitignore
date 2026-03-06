@@ -5,6 +5,10 @@
 .DS_Store
 Thumbs.db
 
+### AI Agent ##
+.claude
+.codex
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
