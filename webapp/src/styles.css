@@ -421,6 +421,16 @@ input:focus {
   margin-bottom: 4px;
 }
 
+.demo-notice {
+  font-size: 13px;
+  color: #6b7280;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  margin-bottom: 4px;
+}
+
 /* ─── States ─── */
 
 .error {

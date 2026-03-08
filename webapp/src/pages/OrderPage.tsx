@@ -86,6 +86,10 @@ export function OrderPage() {
       {cart && cart.items.length > 0 ? (
         <>
           <p className="order-total">Order total: ${cart.total.toFixed(2)}</p>
+          <p className="demo-notice">
+            This is a demo application. No real payment or email delivery will occur.
+            You may enter any dummy values in all fields.
+          </p>
           <form className="form" onSubmit={onSubmit}>
             <div className="form-section">
               <h3 className="form-section-title">Shipping Information</h3>
