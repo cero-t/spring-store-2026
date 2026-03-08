@@ -49,15 +49,17 @@ flowchart LR
 
 #### 1. Start up RabbitMQ and LGTM stack.
 
-Go to `docker/dev` directory
+Go to `docker/lgtm` directory
 ```
-cd docker/dev
+cd docker/lgtm
 ```
 
 Run up RabbitMQ and LGTM stack
 ```
 docker compose up -d
 ```
+
+See available Docker stack options in `docker/README.md`.
 
 #### 2. Run applications
 
