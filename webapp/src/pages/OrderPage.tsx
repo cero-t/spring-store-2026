@@ -33,6 +33,7 @@ export function OrderPage() {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [serverError, setServerError] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -63,8 +64,12 @@ export function OrderPage() {
       clearStoredCartId();
       navigate('/order/complete', { replace: true });
     } catch (e) {
-      const msg = e instanceof ApiError ? e.message : 'Failed to place order';
-      setError(msg);
+      if (e instanceof ApiError && e.status >= 500) {
+        setServerError(true);
+      } else {
+        const msg = e instanceof ApiError ? e.message : 'Failed to place order';
+        setError(msg);
+      }
     } finally {
       setSubmitting(false);
     }
@@ -153,6 +158,19 @@ export function OrderPage() {
         <div className="empty-state">
           <h3>Cart is empty</h3>
           <p>Please add items from the catalog before checking out.</p>
+        </div>
+      )}
+      {serverError && (
+        <div className="modal-backdrop" role="presentation">
+          <div aria-live="polite" className="modal" role="dialog">
+            <p className="modal-title">Order Failed</p>
+            <p>A server error occurred. Please try again later.</p>
+            <div className="modal-actions">
+              <button onClick={() => setServerError(false)} type="button">
+                Close
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </section>

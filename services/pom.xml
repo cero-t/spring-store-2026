@@ -22,6 +22,8 @@
 	</properties>
 
 	<modules>
+		<module>store-starter</module>
+
 		<module>item/item-client</module>
 		<module>item/item-domain</module>
 		<module>item/item-service</module>
@@ -50,6 +52,11 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>ninja.cero.store</groupId>
+				<artifactId>store-starter</artifactId>
+				<version>1.0.0</version>
+			</dependency>
 			<dependency>
 				<groupId>ninja.cero.store</groupId>
 				<artifactId>item-client</artifactId>

@@ -3,11 +3,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>messaging</artifactId>
+	<artifactId>store-starter</artifactId>
 	<packaging>jar</packaging>
 
-	<name>messaging</name>
-	<description>messaging</description>
+	<name>store-starter</name>
+	<description>Shared starter for Spring Store services</description>
 
 	<parent>
 		<groupId>ninja.cero.store</groupId>
@@ -18,27 +18,23 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>ninja.cero.store</groupId>
-			<artifactId>store-starter</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-amqp</artifactId>
+			<artifactId>spring-boot-starter-opentelemetry</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-configuration-processor</artifactId>
-			<optional>true</optional>
+			<groupId>am.ik.spring.opentelemetry</groupId>
+			<artifactId>otel-logs-autoconfigure</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 		</dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
 
 </project>
